@@ -98,12 +98,16 @@ public class GameStart : MonoBehaviour {
 
 	public static GameObject goMainScreen;
 	public static GameObject goBuildView;
+	public static GameObject goRecruitArm;
 	// Use this for initialization
 	void Awake()
 	{
 		goMainScreen = GameObject.Find ("MainScreenPanel");
 		goBuildView = GameObject.Find ("BuildingViewPanel");
+		goRecruitArm = GameObject.Find ("RecruitArmPanel");
+
 		goBuildView.SetActive (false);
+		goRecruitArm.SetActive (false);
 	}
 	void Start () {
 //		goMainScreen = GameObject.Find ("MainScreenPanel");
