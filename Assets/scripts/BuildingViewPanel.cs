@@ -13,6 +13,11 @@ public class BuildingViewPanel : MonoBehaviour {
 	
 	}
 
+	public void BuildViewCancelClickEvent()
+	{
+		GameStart.goBuildView.SetActive (false);
+	}
+
 	public void BuildingOnBuildClickEvent(GameObject go)
 	{
 		Debug.Log ("aa" + go.name);

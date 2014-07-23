@@ -45,6 +45,8 @@ public class CUser
 	public Arm[] m_armInfo = new Arm[cGameDataDef.ArmOnBattleNum];
 	
 	private static CUser m_instance = null;
+
+
 	
 	public CUser()
 	{
@@ -55,6 +57,13 @@ public class CUser
 		m_dUserBuilds.Add (cGameDataDef.Temple, 0);
 		m_dUserBuilds.Add (cGameDataDef.TrainGround, 0);
 		m_dUserBuilds.Add (cGameDataDef.Heaven, 0);
+
+		for (int i = 0; i < cGameDataDef.ArmOnBattleNum; i++)
+		{
+			m_armInfo[i].iNum = 0;
+			m_armInfo[i].iStar = 0;
+			m_armInfo[i].iType = 0;
+		}
 	}
 	
 	public static CUser Instance()
