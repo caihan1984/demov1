@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Timers;
 
 public class BuildingViewPanel : MonoBehaviour {
 
@@ -20,7 +21,7 @@ public class BuildingViewPanel : MonoBehaviour {
 
 	public void BuildingOnBuildClickEvent(GameObject go)
 	{
-		Debug.Log ("aa" + go.name);
+		Debug.Log ("aa" + go.name + " " +  (System.DateTime.Now.ToUniversalTime().Ticks - 621355968000000000) / 10000000);
 		GameStart.goBuildView.SetActive (false);
 	
 //		Transform goCamp;
