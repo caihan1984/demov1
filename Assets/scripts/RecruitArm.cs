@@ -61,22 +61,29 @@ public class RecruitArm : MonoBehaviour {
 			iTotalNum = MainScreen.m_dArmCanRecruitNum[cGameDataDef.Angel];
 		}
 
+		int iLeftNum = 0;
 		if (go.name == "AddSprite")
 		{
-			int iLeftNum = int.Parse(lbsLabel.text);
+			iLeftNum = int.Parse(lbsLabel.text);
 			if (iLeftNum <= 0) return;
 			iInitNum += 1;
-
 			lbsLabel.text = (iLeftNum - 1).ToString();
-
-			scbScroll.value = (float)iInitNum / (float)iTotalNum;
-
-			Debug.Log("f " + scbScroll.value);
-
-			float a = scbScroll.value * (float)iTotalNum;
-	
-		//	int b = (int)a;
-			lbrLabel.text = ((int)a).ToString();
 		}
+		else if (go.name == "ReduceSprite")
+		{
+			iLeftNum = int.Parse(lbsLabel.text);
+			if (iLeftNum >= iTotalNum) return;
+			iInitNum -= 1;
+			lbsLabel.text = (iLeftNum + 1).ToString();
+		}
+		
+		scbScroll.value = (float)iInitNum / (float)iTotalNum;
+		
+		Debug.Log("f " + scbScroll.value);
+		
+		float a = scbScroll.value * (float)iTotalNum;
+		
+		//	int b = (int)a;
+		lbrLabel.text = ((int)a).ToString();
 	}
 }

@@ -31,11 +31,13 @@ public class MainScreen : MonoBehaviour {
 	public void BuildShopClickEvent()
 	{
 		GameStart.goBuildView.SetActive (true);
+		OffOnShopButton (false);
 	}
 
 	public void RecruitArmCancel()
 	{
 		GameStart.goRecruitArm.SetActive (false);
+		OffOnShopButton (true);
 	}
 
 	public void RefreshArmNumForRe()
@@ -62,13 +64,25 @@ public class MainScreen : MonoBehaviour {
 		return m_dArmCanRecruitNum [iType];
 	}
 
+	//开关商店按钮
+	public static void OffOnShopButton(bool flag)
+	{
+		var goCamp = GameStart.goMainScreen.transform.Find("mainBGR/ShopButton");
+		goCamp.gameObject.SetActive(flag);
+	}
+
 	//兵营招兵
 	public void BuildRecruitClickEvent(GameObject go)
 	{
+		OffOnShopButton (false);
 		GameStart.goRecruitArm.SetActive (true);
 
+		//scroll bar等信息初始化
 		RefreshArmNumForRe ();
 		RecruitArm.iInitNum = 0;
+		var spScroll = GameStart.goRecruitArm.transform.Find("RecruitArmBG/RecuScorll/");
+		var scbScroll = spScroll.GetComponent<UIScrollBar> ();
+		scbScroll.value = 0.0f;
 
 		var Camp = GameStart.goRecruitArm.transform.Find("RecruitArmBG/SoldierPic");
 		var Label = GameStart.goRecruitArm.transform.Find("RecruitArmBG/SoldierPic/CountLabel");

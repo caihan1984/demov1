@@ -100,6 +100,11 @@ public class CUser
 		return m_dUserBuilds [iBType];
 	}
 
+	public void CampBuildUp(int iType)
+	{
+		m_dUserBuilds [iType] += 1;
+	}
+
 	//兵营生产
 	public void CampProduct(int iType)
 	{
@@ -182,37 +187,37 @@ public class GameStart : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		long iTime = CUser.GetSysTime ();
-		if (iTime - PikeManProTime >= cGameDataDef.PikeManCD)
+		if (iTime - PikeManProTime >= cGameDataDef.PikeManCD && CUser.Instance().GetBuildLevel(cGameDataDef.PikeMan) > 0)
 		{
 			CUser.Instance().CampProduct(cGameDataDef.PikeMan);
 			PikeManProTime = iTime;
 		}
-		if (iTime - ArcherProTime >= cGameDataDef.ArcherCD)
+		if (iTime - ArcherProTime >= cGameDataDef.ArcherCD && CUser.Instance().GetBuildLevel(cGameDataDef.Archer) > 0)
 		{
 			CUser.Instance().CampProduct(cGameDataDef.Archer);
 			ArcherProTime = iTime;
 		}
-		if (iTime - GriffinProTime >= cGameDataDef.GriffinCD)
+		if (iTime - GriffinProTime >= cGameDataDef.GriffinCD && CUser.Instance().GetBuildLevel(cGameDataDef.Griffin) > 0)
 		{
 			CUser.Instance().CampProduct(cGameDataDef.Griffin);
 			GriffinProTime = iTime;
 		}
-		if (iTime - SwordManProTime >= cGameDataDef.SwordManCD)
+		if (iTime - SwordManProTime >= cGameDataDef.SwordManCD && CUser.Instance().GetBuildLevel(cGameDataDef.SwordMan) > 0)
 		{
 			CUser.Instance().CampProduct(cGameDataDef.SwordMan);
 			SwordManProTime = iTime;
 		}
-		if (iTime - FriarProTime >= cGameDataDef.FriarCD)
+		if (iTime - FriarProTime >= cGameDataDef.FriarCD && CUser.Instance().GetBuildLevel(cGameDataDef.Friar) > 0)
 		{
 			CUser.Instance().CampProduct(cGameDataDef.Friar);
 			FriarProTime = iTime;
 		}
-		if (iTime - KnightProTime >= cGameDataDef.KnightCD)
+		if (iTime - KnightProTime >= cGameDataDef.KnightCD && CUser.Instance().GetBuildLevel(cGameDataDef.Knight) > 0)
 		{
 			CUser.Instance().CampProduct(cGameDataDef.Knight);
 			KnightProTime = iTime;
 		}
-		if (iTime - AngelProTime >= cGameDataDef.AngelCD)
+		if (iTime - AngelProTime >= cGameDataDef.AngelCD && CUser.Instance().GetBuildLevel(cGameDataDef.Angel) > 0)
 		{
 			CUser.Instance().CampProduct(cGameDataDef.Angel);
 			AngelProTime = iTime;

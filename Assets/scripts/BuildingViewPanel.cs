@@ -23,6 +23,7 @@ public class BuildingViewPanel : MonoBehaviour {
 	{
 //		Debug.Log ("aa" + go.name + " " +  float.Parse(1 / 11));
 		GameStart.goBuildView.SetActive (false);
+		MainScreen.OffOnShopButton (true);
 	
 //		Transform goCamp;
 		if (go.name == "PikeManBuild")
@@ -34,6 +35,7 @@ public class BuildingViewPanel : MonoBehaviour {
 		//	goCamp.SetActive(true);
 			UIPlayTween upt = goCamp.GetComponent<UIPlayTween>();
 			upt.Play(true);
+			CUser.Instance().CampBuildUp(cGameDataDef.PikeMan);
 		}
 		else if (go.name == "ArcherBuild")
 		{
@@ -41,6 +43,7 @@ public class BuildingViewPanel : MonoBehaviour {
 			goCamp.gameObject.SetActive(true);
 			UIPlayTween upt = goCamp.GetComponent<UIPlayTween>();
 			upt.Play(true);
+			CUser.Instance().CampBuildUp(cGameDataDef.Archer);
 		}
 		else if (go.name == "GriffinBuild")
 		{
@@ -48,6 +51,7 @@ public class BuildingViewPanel : MonoBehaviour {
 			goCamp.gameObject.SetActive(true);
 			UIPlayTween upt = goCamp.GetComponent<UIPlayTween>();
 			upt.Play(true);
+			CUser.Instance().CampBuildUp(cGameDataDef.Griffin);
 		}
 		else if (go.name == "SwordManBuild")
 		{
@@ -55,6 +59,7 @@ public class BuildingViewPanel : MonoBehaviour {
 			goCamp.gameObject.SetActive(true);
 			UIPlayTween upt = goCamp.GetComponent<UIPlayTween>();
 			upt.Play(true);
+			CUser.Instance().CampBuildUp(cGameDataDef.SwordMan);
 		}
 		else if (go.name == "FriarBuild")
 		{
@@ -62,6 +67,7 @@ public class BuildingViewPanel : MonoBehaviour {
 			goCamp.gameObject.SetActive(true);
 			UIPlayTween upt = goCamp.GetComponent<UIPlayTween>();
 			upt.Play(true);
+			CUser.Instance().CampBuildUp(cGameDataDef.Friar);
 		}
 		else if (go.name == "KnightBuild")
 		{
@@ -69,6 +75,7 @@ public class BuildingViewPanel : MonoBehaviour {
 			goCamp.gameObject.SetActive(true);
 			UIPlayTween upt = goCamp.GetComponent<UIPlayTween>();
 			upt.Play(true);
+			CUser.Instance().CampBuildUp(cGameDataDef.Knight);
 		}
 		else if (go.name == "AngelBuild")
 		{
@@ -76,6 +83,7 @@ public class BuildingViewPanel : MonoBehaviour {
 			goCamp.gameObject.SetActive(true);
 			UIPlayTween upt = goCamp.GetComponent<UIPlayTween>();
 			upt.Play(true);
+			CUser.Instance().CampBuildUp(cGameDataDef.Angel);
 		}
 	}
 }
