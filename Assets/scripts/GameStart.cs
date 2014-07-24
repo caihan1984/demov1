@@ -44,6 +44,14 @@ public class CUser
 	//建筑信息
 	public Dictionary<int, int>	m_dUserBuilds = new Dictionary<int, int> ();
 
+	//玩家部队
+	public Arm[] m_armInfo = new Arm[cGameDataDef.ArmOnBattleNum];
+
+	//兵营可招募部队
+	public Dictionary<int, int> dArmCanRecruit = new Dictionary<int, int>();
+
+	private static CUser m_instance = null;
+
 	//部队信息	
 	public struct Arm
 	{
@@ -52,18 +60,10 @@ public class CUser
 		public int iStar;	//星级
 	}
 	
-	//玩家部队
-	public Arm[] m_armInfo = new Arm[cGameDataDef.ArmOnBattleNum];
-	
-	private static CUser m_instance = null;
-
-	//兵营可招募部队
-	public Dictionary<int, int> dArmCanRecruit = new Dictionary<int, int>();
-	
 	public CUser()
 	{
-		m_dUserBuilds.Add (cGameDataDef.WatchTower, 1);
-		m_dUserBuilds.Add (cGameDataDef.ShooterTower, 1);
+		m_dUserBuilds.Add (cGameDataDef.WatchTower, 0);
+		m_dUserBuilds.Add (cGameDataDef.ShooterTower, 0);
 		m_dUserBuilds.Add (cGameDataDef.GriffinTower, 0);
 		m_dUserBuilds.Add (cGameDataDef.CampTower, 0);
 		m_dUserBuilds.Add (cGameDataDef.Temple, 0);
