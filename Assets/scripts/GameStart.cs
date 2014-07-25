@@ -37,6 +37,27 @@ public class cGameDataDef
 	public static int AngelCD = 7;				//天使
 }
 
+//部队信息	
+public struct Arm
+{
+	public int iType;	//类型
+	public int iNum;	//数量
+	public int iStar;	//星级
+	
+	//		public Arm(int t, int n, int s)
+	//		{
+	//			iType = t;
+	//			iNum = n;
+	//			iStar = s;
+	//		}
+	public void Init(int t, int n, int s)
+	{
+		iType = t;
+		iNum = n;
+		iStar = s; 
+	}
+}
+
 //玩家数据
 public class CUser
 {
@@ -50,15 +71,10 @@ public class CUser
 	//兵营可招募部队
 	public Dictionary<int, int> dArmCanRecruit = new Dictionary<int, int>();
 
-	private static CUser m_instance = null;
+	//兵种图片信息
+	public Dictionary<int, string> dArmPic = new Dictionary<int, string> ();
 
-	//部队信息	
-	public struct Arm
-	{
-		public int iType;	//类型
-		public int iNum;	//数量
-		public int iStar;	//星级
-	}
+	private static CUser m_instance = null;
 	
 	public CUser()
 	{
@@ -77,6 +93,14 @@ public class CUser
 		dArmCanRecruit.Add (cGameDataDef.Temple, 0);
 		dArmCanRecruit.Add (cGameDataDef.TrainGround, 0);
 		dArmCanRecruit.Add (cGameDataDef.Heaven, 0);
+
+		dArmPic.Add (cGameDataDef.WatchTower, "1325.0");
+		dArmPic.Add (cGameDataDef.ShooterTower, "1337.0");
+		dArmPic.Add (cGameDataDef.GriffinTower, "1310.0");
+		dArmPic.Add (cGameDataDef.CampTower, "1319.0");
+		dArmPic.Add (cGameDataDef.Temple, "1343.0");
+		dArmPic.Add (cGameDataDef.TrainGround, "1304.0");
+		dArmPic.Add (cGameDataDef.Heaven, "1291.0");
 
 		for (int i = 0; i < cGameDataDef.ArmOnBattleNum; i++)
 		{
@@ -123,17 +147,34 @@ public class CUser
 	}
 	
 	//public void RecruitArm(int iArmType, int iNum, int iStar)
-	public void RecruitArm(Arm armInfo)
+	public void RecruitArm(int iType, Arm armInfo)
 	{
 		Debug.Log("recruit arm");
+		bool iFlag = false;
+		//先叠加
+		for (int i = 0; i < cGameDataDef.ArmOnBattleNum; ++i)
+		{
+			if (m_armInfo[i].iType == armInfo.iType && m_armInfo[i].iStar == armInfo.iStar)
+			{
+				m_armInfo[i].iNum += armInfo.iNum;
+				iFlag = true;
+			}
+		}
+		//找空位置
 		for (int i = 0; i < cGameDataDef.ArmOnBattleNum; ++i)
 		{
 			if (m_armInfo[i].iType == 0)
 			{
 				m_armInfo[i] = armInfo;
-				return;
+				iFlag = true;
 			}
 		}
+		if (iFlag == true)
+		{
+			dArmCanRecruit[armInfo.iType] -= armInfo.iNum;
+			//
+		}
+
 		return;
 	}
 }
@@ -150,6 +191,7 @@ public class GameStart : MonoBehaviour {
 	public static GameObject goMainScreen;
 	public static GameObject goBuildView;
 	public static GameObject goRecruitArm;
+	public static GameObject goArmStore;
 
 	//部队生产时间
 	public  long PikeManProTime;				//步兵
@@ -165,9 +207,11 @@ public class GameStart : MonoBehaviour {
 		goMainScreen = GameObject.Find ("MainScreenPanel");
 		goBuildView = GameObject.Find ("BuildingViewPanel");
 		goRecruitArm = GameObject.Find ("RecruitArmPanel");
+		goArmStore = GameObject.Find ("ArmStorage");
 
 		goBuildView.SetActive (false);
 		goRecruitArm.SetActive (false);
+		goArmStore.SetActive (false);
 	}
 	void Start () {
 //		goMainScreen = GameObject.Find ("MainScreenPanel");

@@ -32,33 +32,41 @@ public class RecruitArm : MonoBehaviour {
 		var spArmType = trArmType.GetComponent<UISprite> ();
 
 		int iTotalNum = 0;
-		if (spArmType.spriteName == "1325.0")
+		int iType = 0;
+		if (spArmType.spriteName == CUser.Instance().dArmPic[cGameDataDef.PikeMan])
 		{
 			iTotalNum = MainScreen.m_dArmCanRecruitNum[cGameDataDef.PikeMan];
+			iType = cGameDataDef.PikeMan;
 		}
-		else if (spArmType.spriteName == "1337.0")
+		else if (spArmType.spriteName == CUser.Instance().dArmPic[cGameDataDef.Archer])
 		{
 			iTotalNum = MainScreen.m_dArmCanRecruitNum[cGameDataDef.Archer];
+			iType = cGameDataDef.Archer;
 		}
-		else if (spArmType.spriteName == "1310.0")
+		else if (spArmType.spriteName == CUser.Instance().dArmPic[cGameDataDef.Griffin])
 		{
 			iTotalNum = MainScreen.m_dArmCanRecruitNum[cGameDataDef.Griffin];
+			iType = cGameDataDef.Griffin;
 		}
-		else if (spArmType.spriteName == "1319.0")
+		else if (spArmType.spriteName == CUser.Instance().dArmPic[cGameDataDef.SwordMan])
 		{
 			iTotalNum = MainScreen.m_dArmCanRecruitNum[cGameDataDef.SwordMan];
+			iType = cGameDataDef.SwordMan;
 		}
-		else if (spArmType.spriteName == "1343.0")
+		else if (spArmType.spriteName == CUser.Instance().dArmPic[cGameDataDef.Friar])
 		{
 			iTotalNum = MainScreen.m_dArmCanRecruitNum[cGameDataDef.Friar];
+			iType = cGameDataDef.Friar;
 		}
-		else if (spArmType.spriteName == "1304.0")
+		else if (spArmType.spriteName == CUser.Instance().dArmPic[cGameDataDef.Knight])
 		{
 			iTotalNum = MainScreen.m_dArmCanRecruitNum[cGameDataDef.Knight];
+			iType = cGameDataDef.Knight;
 		}
-		else if (spArmType.spriteName == "1291.0")
+		else if (spArmType.spriteName == CUser.Instance().dArmPic[cGameDataDef.Angel])
 		{
 			iTotalNum = MainScreen.m_dArmCanRecruitNum[cGameDataDef.Angel];
+			iType = cGameDataDef.Angel;
 		}
 
 		int iLeftNum = 0;
@@ -68,6 +76,8 @@ public class RecruitArm : MonoBehaviour {
 			if (iLeftNum <= 0) return;
 			iInitNum += 1;
 			lbsLabel.text = (iLeftNum - 1).ToString();
+			scbScroll.value = (float)iInitNum / (float)iTotalNum;
+			lbrLabel.text = ((int)(scbScroll.value * (float)iTotalNum)).ToString();
 		}
 		else if (go.name == "ReduceSprite")
 		{
@@ -75,15 +85,32 @@ public class RecruitArm : MonoBehaviour {
 			if (iLeftNum >= iTotalNum) return;
 			iInitNum -= 1;
 			lbsLabel.text = (iLeftNum + 1).ToString();
+			scbScroll.value = (float)iInitNum / (float)iTotalNum;
+			lbrLabel.text = ((int)(scbScroll.value * (float)iTotalNum)).ToString();
 		}
-		
-		scbScroll.value = (float)iInitNum / (float)iTotalNum;
-		
-		Debug.Log("f " + scbScroll.value);
-		
-		float a = scbScroll.value * (float)iTotalNum;
-		
-		//	int b = (int)a;
-		lbrLabel.text = ((int)a).ToString();
+		else if (go.name == "ConfirmSprite")
+		{
+			Arm armInfo = new Arm();
+			armInfo.Init(iType, iInitNum, 1);
+
+			GameStart.goArmStore.SetActive(true);
+			var gridArm = GameStart.goArmStore.transform.Find("Grid");
+
+			for (int i = 0; i < cGameDataDef.ArmOnBattleNum; ++i)
+			{
+				var child = gridArm.GetChild(i);
+				if (CUser.Instance().m_armInfo[i].iNum > 0)
+				{
+					var cs = child.transform.Find("Sprite");
+					var sp = cs.GetComponent<UISprite>();
+					sp.spriteName = CUser.Instance().dArmPic[CUser.Instance().m_armInfo[i].iType];
+
+					var cl = child.transform.Find("Label");
+					var lb = cl.GetComponent<UILabel>();
+
+					lb.text = (CUser.Instance().m_armInfo[i].iNum).ToString();
+				}
+			}
+		}
 	}
 }
