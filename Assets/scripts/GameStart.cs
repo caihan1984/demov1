@@ -147,7 +147,7 @@ public class CUser
 	}
 	
 	//public void RecruitArm(int iArmType, int iNum, int iStar)
-	public void RecruitArm(int iType, Arm armInfo)
+	public void RecruitArm(Arm armInfo)
 	{
 		Debug.Log("recruit arm");
 		bool iFlag = false;
@@ -158,17 +158,24 @@ public class CUser
 			{
 				m_armInfo[i].iNum += armInfo.iNum;
 				iFlag = true;
+				break;
 			}
 		}
-		//找空位置
-		for (int i = 0; i < cGameDataDef.ArmOnBattleNum; ++i)
+
+		if (iFlag == false)
 		{
-			if (m_armInfo[i].iType == 0)
+			//找空位置
+			for (int i = 0; i < cGameDataDef.ArmOnBattleNum; ++i)
 			{
-				m_armInfo[i] = armInfo;
-				iFlag = true;
+				if (m_armInfo[i].iType == 0)
+				{
+					m_armInfo[i] = armInfo;
+					iFlag = true;
+					break;
+				}
 			}
-		}
+		}	
+
 		if (iFlag == true)
 		{
 			dArmCanRecruit[armInfo.iType] -= armInfo.iNum;

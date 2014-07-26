@@ -38,6 +38,9 @@ public class MainScreen : MonoBehaviour {
 	{
 		GameStart.goRecruitArm.SetActive (false);
 		OffOnShopButton (true);
+
+		//关闭存储部队界面
+		GameStart.goArmStore.SetActive (false);
 	}
 
 	public void RefreshArmNumForRe()

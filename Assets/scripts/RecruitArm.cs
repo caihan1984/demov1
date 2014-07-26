@@ -93,6 +93,12 @@ public class RecruitArm : MonoBehaviour {
 			Arm armInfo = new Arm();
 			armInfo.Init(iType, iInitNum, 1);
 
+			//加入玩家部队
+			CUser.Instance().RecruitArm(armInfo);
+
+			iInitNum = 0;
+			scbScroll.value = 0.0f;
+
 			GameStart.goArmStore.SetActive(true);
 			var gridArm = GameStart.goArmStore.transform.Find("Grid");
 
